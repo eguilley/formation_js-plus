@@ -1,5 +1,12 @@
 'use strict';
 
+function createElt(type, content, style) {
+  const elt = document.createElement(type)
+  elt.textContent = content
+  elt.classList.add(style)
+  return elt
+}
+
 document.addEventListener(
   'DOMContentLoaded',
   function () {
@@ -18,9 +25,15 @@ document.addEventListener(
           - lui fournir le texte du tweet en textContent
           - ajouter la div au <body>
         */
+        const elt = document.createElement('div')
+        elt.textContent = tweets[0].full_text
+        document.body.append(elt)
 
         console.log('--- Question 2 ---');
         // créer un <ol> et remplacer la <div> par le <ol>
+        const liste = document.createElement('ol')
+        // liste.textContent = 'test'
+        elt.replaceWith(liste)
 
         console.log('--- Question 3 ---');
         /* pour chaque tweet
@@ -28,6 +41,23 @@ document.addEventListener(
           - mettre le texte dedans
           - mettre le <li> dans le <ol>
         */
+        tweets.forEach(e => {
+          const listeElt = createElt('li', e.full_text, 'listeElt')
+          listeElt.addEventListener(
+            'click',
+            function () {
+              console.log(e.id)
+            }
+          )
+          const createdDate = createElt('div', e.created_at, 'createdDate')
+          const author = createElt('div', e.user.name, 'author')
+          listeElt.append(createdDate, author)
+          e.entities.hashtags.forEach(hashtag => {
+            const hashtagElt = createElt('div', '#'+hashtag.text, 'hashtag')
+            listeElt.append(hashtagElt)
+          })
+          liste.append(listeElt)
+        })
 
         console.log('--- Question 4 ---');
         /* enrichir la fonction de la question 3 pour:

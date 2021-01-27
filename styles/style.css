@@ -7,3 +7,21 @@ h1 {
 .tweet {
   margin: 1rem;
 }
+
+.listeElt {
+  color: blue;
+}
+
+.createdDate {
+  color: black;
+  font-weight: bold;
+}
+
+.author {
+  color: black;
+  font-style: italic;
+}
+
+.hashtag {
+  color: green;
+}
